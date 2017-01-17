@@ -19,8 +19,25 @@ def start_here():
 
     return '<!doctype html><html>Hi! This is the home page.<a href="/hello">Go to Hello</a><html>'
 
-# @app.route('/diss')
-# def say_insult():
+@app.route('/diss')
+def say_insult():
+  """ returns insults """
+
+  player = request.args.get("person")
+  insult = request.args.get("insultttype")
+
+
+  return """
+    <!doctype html>
+    <html>
+      <head>
+        <title>An Insult</title>
+      </head>
+      <body>
+        Hi %s I think you're %s!
+      </body>
+    </html>
+    """ % (player, insult)
 
 @app.route('/hello')
 def say_hello():
@@ -41,6 +58,16 @@ def say_hello():
             <option value= "awesome" >Awesome</option>
             <option value= "terrific" >Terrific</option>
             <option value= "fantastic" >Fantastic</option>
+          </select><br>
+          <input type="submit">
+        </form>
+        <form action="/diss">
+          # <label>What's your name? <input type="text" name="person"></label><br>
+          Insult:
+          <select name="insultttype">
+            <option value= "silly" >Silly</option>
+            <option value= "dumb" >Dumb</option>
+            <option value= "stupid" >Stupid</option>
           </select><br>
           <input type="submit">
         </form>
